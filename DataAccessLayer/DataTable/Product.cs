@@ -13,6 +13,7 @@ namespace DataAccessLayer.DataTable
         public string ProductName { get; set; }
         public decimal Price { get; set; }
         public int InStock { get; set; }
+        public int AllReservedPartNumber { get; set; }
 
     }
 }
