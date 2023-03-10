@@ -17,5 +17,6 @@ namespace DataAccessLayer
         }
 
         public DbSet<Product> Products { get; set; }
+         
     }
 }
