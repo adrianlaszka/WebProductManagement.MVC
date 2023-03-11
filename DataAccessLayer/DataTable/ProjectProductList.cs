@@ -14,8 +14,8 @@ namespace DataAccessLayer.DataTable
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [Required]
-        public int productID { get; set; }
-        public string projectID { get; set; }
+        public int ProductID { get; set; }
+        public int ProjectID { get; set; }
 
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }
