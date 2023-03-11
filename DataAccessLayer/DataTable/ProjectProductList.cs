@@ -15,6 +15,7 @@ namespace DataAccessLayer.DataTable
         public int ID { get; set; }
         [Required]
         public int ProductID { get; set; }
+        [Required]
         public int ProjectID { get; set; }
 
         [ForeignKey("ProductID")]

@@ -16,7 +16,9 @@ namespace DataAccessLayer.DataTable
 
         [Required]
         public int ProductID { get; set; }
+        [Required]
         public int WarehouseID { get; set; }
+        [Required]
         public int NumberOfProducts { get; set; }
      
 

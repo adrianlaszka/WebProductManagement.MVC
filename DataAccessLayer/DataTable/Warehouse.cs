@@ -15,7 +15,9 @@ namespace DataAccessLayer.DataTable
         public int ID { get; set; }
         [Required]
         public int row { get; set; }
+        [Required]
         public int cell { get; set; }
+        [Required]
         public int col { get; set; }
 
     }
