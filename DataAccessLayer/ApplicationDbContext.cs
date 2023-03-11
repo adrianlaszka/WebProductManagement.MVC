@@ -21,6 +21,7 @@ namespace DataAccessLayer
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<ProjectStatus> ProjectStatuses { get; set; }
         public DbSet<ProjectDetails> ProjectDetails { get; set; }
+        public DbSet<ProjectProductList> ProjectProductLists { get; set; }
 
 
     }
