@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.DataTable
 {
-    public class ProjectStatus
+    public class ProjectDetails
     {
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+
         [Required]
-        public int projectID { get; set; }
-        public int projectCurrentStat { get; set; }
-        public DateTime statusChanged { get; set; }
-
-        [ForeignKey("projectID")]
-        public virtual ProjectDetails ProjectDetails { get; set; }
-
+        public String projectLocation { get; set; }
+        public String projectDescription { get; set; }
+        public String customerData { get; set; }
+        public int workDuration { get; set; }
+        public int workCost { get; set; }
 
     }
 }

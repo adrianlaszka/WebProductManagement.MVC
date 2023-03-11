@@ -20,6 +20,7 @@ namespace DataAccessLayer
         public DbSet<Location> Locations { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<ProjectStatus> ProjectStatuses { get; set; }
+        public DbSet<ProjectDetails> ProjectDetails { get; set; }
 
 
     }
