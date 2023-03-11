@@ -16,15 +16,15 @@ namespace DataAccessLayer.DataTable
 
         [Required]
         public int ProductID { get; set; }
-        public string WarehouseID { get; set; }
+        public int WarehouseID { get; set; }
         public int NumberOfProducts { get; set; }
      
 
         [ForeignKey("ProductID")]
         public virtual Product Product { get; set; }
 
-       /* [ForeignKey("WarehouseID")]
-        public virtual Warehouse Warehouse { get; set; }*/
+        [ForeignKey("WarehouseID")]
+        public virtual Warehouse Warehouse { get; set; }
 
     }
 }
