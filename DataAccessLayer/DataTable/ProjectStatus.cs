@@ -15,9 +15,7 @@ namespace DataAccessLayer.DataTable
         public int ID { get; set; }
         [Required]
         public int projectID { get; set; }
-        [Required]
         public int projectCurrentStat { get; set; }
-        [Required]
         public DateTime statusChanged { get; set; }
 
         [ForeignKey("projectID")]

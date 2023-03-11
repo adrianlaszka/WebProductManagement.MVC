@@ -17,13 +17,9 @@ namespace DataAccessLayer.DataTable
 
         [Required]
         public String projectLocation { get; set; }
-        [Required]
         public String projectDescription { get; set; }
-        [Required]
         public String customerData { get; set; }
-        [Required]
         public int workDuration { get; set; }
-        [Required]
         public int workCost { get; set; }
 
     }

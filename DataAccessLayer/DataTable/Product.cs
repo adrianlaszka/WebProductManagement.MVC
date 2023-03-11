@@ -15,13 +15,9 @@ namespace DataAccessLayer.DataTable
         public int ID { get; set; }
         [Required]
         public int MaxPerCell { get; set; }
-        [Required]
         public string ProductName { get; set; }
-        [Required]
         public decimal Price { get; set; }
-        [Required]
         public int InStock { get; set; }
-        [Required]
         public int AllReservedPartNumber { get; set; }
 
     }
