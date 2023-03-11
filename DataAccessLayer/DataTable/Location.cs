@@ -8,7 +8,7 @@ namespace DataAccessLayer.DataTable
 {
     public class Location
     {
-        public int LocationID { get; set; }
+        public int ID { get; set; }
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public int NumberOfProducts { get; set; }
