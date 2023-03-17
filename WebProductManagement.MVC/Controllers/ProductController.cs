@@ -22,11 +22,14 @@ public class ProductController : Controller
             return View(productList);
       }
 
+        //Alkatrész hozzáadása nézet megjelenítése
       public ActionResult CreateProduct()
         {
             return View();
         }
 
+        //Alkatrész neve, ára, max elhelyezhető mennyisége jön a frontend-ről
+        //Ezt az új alkatrész objektumot kell eltárolni az adatbázisban
         [HttpPost]
         public ActionResult CreateProduct(string productName, decimal price, int maxPerCell)
         {
@@ -37,6 +40,34 @@ public class ProductController : Controller
             return View();
             //return Content(productName);
         }
+
+        //A kiválasztott alkatrész érkezik ide, az alkatrészek listázása nézetről.
+        //Aztán ezek az adatok mennek tovább az alkatrész módosítása nézetre, ahol lehet módosítani bármely paraméterét.
+        [HttpPost]
+        public ActionResult UpdateProduct(int id, string productName, int inStock, int maxPerCell, decimal price)
+        {
+            ViewBag.id = id;
+            ViewBag.productName = productName;
+            ViewBag.inStock = inStock;
+            ViewBag.maxPerCell = maxPerCell;
+            ViewBag.price = price;
+            return View();
+            //return Content(id.ToString() + " " + productName + inStock + " " + maxPerCell + " " + price);
+        }
+
+        //Frontendről jönnek a a módosított alkatrész adatai.
+        //Ezt a módosított objektumot kell frissíteni az adatbázisba.
+        [HttpPost]
+        public ActionResult UpdateProductParameters(string productName, decimal price, int maxPerCell)
+        {
+   
+            //return View();
+            
+            return Content(productName);
+            
+        }
+
+
 
 
     }

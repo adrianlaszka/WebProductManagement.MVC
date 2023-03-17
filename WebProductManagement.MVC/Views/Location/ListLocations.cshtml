@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "ListLocations";
+}
+
+
+
+<div>
+    <h2 class='text-center'>Rekeszek</h2>
+    <div class='row'>
+        <table class='table table-striped table-bordered'>
+            <thead>
+                <tr>
+                    <th>Rekesz id</th>
+                    <th>Alkatrész a rekeszben</th>
+                    <th>Sor</th>
+                    <th>Oszlop</th>
+                    <th>Pozíció</th>
+                    <th>Darabszám a rekeszben</th>
+                    <th>Bevételezés</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var loaction in ViewBag.productName) {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <input type="number" placeholder='Darabszám'/>
+                        <button >Elhelyez</button>
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

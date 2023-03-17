@@ -9,7 +9,7 @@
     <h2 class='text-center'>Alkatrészek</h2>
     <button asp-action="Create" class='btn btn-primary mb-2'>Új alkatrész hozzáadása</button>
     <div class='row'>
-        <table className='table table-striped table-bordered'>
+        <table class='table table-striped table-bordered'>
     <thead>
         <tr>
             <th>
@@ -45,7 +45,31 @@
                 @Html.DisplayFor(modelItem => item.MaxPerCell)
             </td>
             <td>
-              <button class='btn btn-info m-1'>Módosítás</button>
+
+                            @using (Html.BeginForm("UpdateProduct", "Product", new
+                            {
+                                id = item.Id,
+                                productName = item.ProductName,
+                                inStock = item.InStock,
+                                maxPerCell = item.MaxPerCell,
+                                price = item.Price
+                            }, FormMethod.Post))
+                            {
+                                <input class='btn btn-info m-1' id="Submit" type="submit" value="Módosít" />
+                            }
+
+                            @using (Html.BeginForm("ListLocations", "Location", new
+                            {
+                                id = item.Id,
+                                productName = item.ProductName,
+                                inStock = item.InStock,
+                                maxPerCell = item.MaxPerCell,
+                                price = item.Price
+                            }, FormMethod.Post))
+                            {
+                                <input class='btn btn-info m-1' id="Submit" type="submit" value="Bevételezés" />
+                            }
+              
             </td>
         </tr>
 }

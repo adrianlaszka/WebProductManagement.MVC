@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewData["Title"] = "CreateProduct";
+﻿@{
+    ViewData["Title"] = "UpdateProduct";
 }
 
 
@@ -8,27 +7,26 @@
     <div class='container m-3'>
         <div class='container'>
             <div class='card col-md-6 offset-md-3 offset-md-3'>
-                <h2>Alkatrész hozzáadása</h2>
+                <h2>Alkatrész módosítása</h2>
                 <div class='card-body'>
-                    <form method="post" action="CreateProduct">
+                    <form method="post" action="UpdateProductParameters">
                         <div class='form-group'>
                             <label class='form-label'>Alkatrész neve</label>
                             <input type="text"
                                    placeholder='Alkatrész neve'
                                    id="productName"
                                    name='productName'
-                                   class='form-control'
-                                   />
+                                   value=@ViewBag.productName
+                                   class='form-control' />
                         </div>
                         <div class='form-group'>
                             <label class='form-label'>Ár</label>
-                            <input type="number"
+                            <input type="text"
                                    placeholder='Ár'
                                    name='price'
                                    id="price"
                                    class='form-control'
-                                   value={price}
-                                   />
+                                   value=@ViewBag.price />
                         </div>
                         <div class='form-group'>
                             <label class='form-label'>Maximum darabszám egy dobozban</label>
@@ -37,8 +35,7 @@
                                    name='maxPerCell'
                                    id="MaxPerCell"
                                    class='form-control'
-                                   value={maxPieceInBox}
-                                   />
+                                   value=@ViewBag.maxPerCell />
                         </div>
                         <button class='btn btn-success m-2' type="submit">Mentés</button>
                         <button class='btn btn-danger' onclick="location.href='@Url.Action("Index")';return false;">Mégse</button>
