@@ -14,12 +14,12 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SolutionLogic.Repository
 {
-     public class ProductRepository : IProductReposity  // This is where I give implementation to the interface method created 
+    public class ProductRepository : IProductReposity  // This is where I give implementation to the interface method created 
     {
         private readonly string _db;
         public ProductRepository(string db)
         {
-            _db =db;
+            _db = db;
         }
 
         /*public async Task<IEnumerable<Product>> GetAllProducts() // this is the complete implemetation of the interface taht return all products from the database with instack greater than one
@@ -107,7 +107,7 @@ namespace SolutionLogic.Repository
         }
 
         //the given productname is exists?
-        bool exists(string productName)
+        public bool Exists(string productName)
         {
             Int64 numberOfProducts = CountProducts();
             return numberOfProducts > 0;

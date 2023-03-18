@@ -10,7 +10,7 @@ namespace SolutionLogic.Interface
 {
     public interface IProductReposity  //Interface are blueprint of a class or abstract method without implemention
     {
-        Task<IEnumerable<Product>> GetAllProducts(); // this is an interface method that get all Products from the database
+        public List<string> GetAllProducts(); // this is an interface method that get all Products from the database
 
         public void AddNewProducts(string name);
 
@@ -20,6 +20,6 @@ namespace SolutionLogic.Interface
 
         public Int64 CountProducts();
 
-        bool exists(string productName);
+        public bool Exists(string productName);
     }
 }

@@ -9,7 +9,6 @@ namespace WebProductManagement.MVC.Controllers
             return View();
         }
 
-
         //Frontendről érkezik a kiválasztott alkatrész.
         //Ki kellene keresni minden olyan rekeszt, ami az adott alkatrészt tartalmazza és még van benne hely.
         //Továbbá kellene minden üres rekesz.
