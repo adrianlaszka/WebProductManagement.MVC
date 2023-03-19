@@ -10,19 +10,23 @@ namespace SolutionLogic.Interface
 {
     public interface IProjectDetailsRepository
     {
-        public void AddProjectLocation(string location);
-        public void UpdateProjectLocation(string oldLocation, string newLocation);
+        public Task<IEnumerable<Product>> GetAllProjects();
 
-        public void AddProjectDescription(string description);
-        public void UpdateProjectDescription(string oldDescription, string newDescription);
+        public void AddNewProject(string projectLocation, string projectDescription, string customerData,
+            int workDuration, int workCost);
 
-        public void AddCustomerData(string customerData);
-        public void UpdateCustomerData(string oldCustomerData, string newCustomerData);
+        public void DeleteProject(int id);
 
-        public void AddWorkDuration(string duration);
-        public void UpdateWorkDuration(string oldDuration, string newDuration);
+        public Int64 CountProjects();
 
-        public void AddWorkCost(string workcost);
-        public void UpdateWorkCost(string oldWorkcost, string newWorkcost);
+        public void UpdateProjectLocation(int projectId, string newLocation);
+
+        public void UpdateProjectDescription(int projectId, string newDescription);
+
+        public void UpdateCustomerData(int projectId, string newCustomerData);
+
+        public void UpdateWorkDuration(int projectId, int newWorkDuration);
+
+        public void UpdateWorkCost(int projectId, int newWorkCost);
     }
 }
