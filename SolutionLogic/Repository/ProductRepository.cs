@@ -11,106 +11,84 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Data;
 
 namespace SolutionLogic.Repository
 {
     public class ProductRepository : IProductReposity  // This is where I give implementation to the interface method created 
     {
+        SolarPanelContext context = new SolarPanelContext();
         private readonly string _db;
         public ProductRepository(string db)
         {
             _db = db;
         }
 
-        /*public async Task<IEnumerable<Product>> GetAllProducts() // this is the complete implemetation of the interface taht return all products from the database with instack greater than one
+        // this is the complete implemetation of the interface that returns all products from the database with instack greater than one
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
             // Select * from Products where Instock > 1
-            return await _db.Products.Where(x => x.InStock >= 1).ToListAsync();
-        }*/
-
-        //to get all products
-        public List<string> GetAllProducts()
-        {
-            List<string> products = new List<string>();
-            using (SqlConnection connection = new SqlConnection(_db))
-            {
-                string query = "SELECT ... FROM ...";
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    string name = reader.GetString(0);
-                    products.Add(name);
-                }
-                connection.Close();
-            }
-            return products;
+            return await context.Products.Where(x => x.InStock >= 1).ToListAsync();
         }
 
-        //to add new products
-        public void AddNewProducts(string name)
+        //to add a new product
+        public void AddNewProduct(string newProduct, int MaxPerCell, decimal Price, int InStock)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            Product prod = new Product()
             {
-                string query = "INSERT INTO ... (...) VALUES (@Name)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Name", name);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
+                ProductName = newProduct,
+                Price = Price,
+                InStock = InStock,
+                MaxPerCell = MaxPerCell
+            };
+            context.add(prod);
+            context.SaveChanges();
         }
 
         //to modify a product
         public void UpdateProduct(string oldName, string newName)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            var prod = context.Products.Where(p=>p.Name == oldName).FirstOrDefault();
+
+            if (prod is Product)
             {
-                string query = "UPDATE ... SET ... = @NewName WHERE ... = @OldName";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@NewName", newName);
-                command.Parameters.AddWithValue("@OldName", oldName);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                prod.Name = newName;
             }
+
+            context.SaveChanges();
         }
 
         //to delete a product
         public void DeleteProduct(string name)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            var prod = context.Products.Where(p => p.Name == name).FirstOrDefault();
+
+            if (prod is Product)
             {
-                string query = "DELETE FROM ... WHERE ... = @Name";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Name", name);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                context.Remove(prod);
             }
+
+            context.SaveChanges();
         }
 
         //to count products
         public Int64 CountProducts()
         {
-            string query;
-            using (SqlConnection connection = new SqlConnection(_db))
-            {
-                query = "SELECT Count(*) FROM ... ";
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
-            return Convert.ToInt64(query);
+            var count = context.Products.Where(x => x.InStock >= 1).Count();
+            return count;
         }
 
         //the given productname is exists?
         public bool Exists(string productName)
         {
-            Int64 numberOfProducts = CountProducts();
-            return numberOfProducts > 0;
+            var prod = context.Products.Where(p => p.Name == productName).FirstOrDefault();
+
+            if (prod is Product)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
