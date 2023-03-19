@@ -17,106 +17,119 @@ namespace SolutionLogic.Repository
 {
     class ProjectDetailsRepository : IProjectDetailsRepository
     {
+        SolarPanelContext context = new SolarPanelContext();
+
         private readonly string _db;
         public ProjectDetailsRepository(string db)
         {
             _db = db;
         }
 
-        public void AddCustomerData(string customerData)
+        //to get all projects
+        public async Task<IEnumerable<Product>> GetAllProjects()
         {
-                
+            return await context.ProjectDetails.Where(x => x.ID > 0).ToListAsync();
         }
 
-        public void AddProjectDescription(string description)
+        //to add a new project
+        public void AddNewProject(string projectLocation, string projectDescription, string customerData,
+            int workDuration, int workCost)
         {
-            
-        }
-
-        public void AddProjectLocation(string location)
-        {
-            
-        }
-
-        public void AddWorkCost(string workcost)
-        {
-            
-        }
-
-        public void AddWorkDuration(string duration)
-        {
-            
-        }
-
-        public void UpdateCustomerData(string oldCustomerData, string newCustomerData)
-        {
-            using (SqlConnection connection = new SqlConnection(_db))
+            ProjectDetails proj = new ProjectDetails()
             {
-                string query = "UPDATE ... SET ... = @newCustomerData WHERE ... = @oldCustomerData";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@newCustomerData", newCustomerData);
-                command.Parameters.AddWithValue("@oldCustomerData", oldCustomerData);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
+                projectLocation = projectLocation,
+                projectDescription = projectDescription,
+                customerData = customerData,
+                workDuration = workDuration,
+                workCost = workCost
+            };
+            context.add(proj);
+            context.SaveChanges();
         }
 
-        public void UpdateProjectDescription(string oldDescription, string newDescription)
+        //to delete a project by ID
+        public void DeleteProject(int id)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            var proj = context.ProjetDetails.Where(p => p.ID == id).FirstOrDefault();
+
+            if (proj is ProjectDetails)
             {
-                string query = "UPDATE ... SET ... = @newDescription WHERE ... = @oldDescription";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@newDescription", newDescription);
-                command.Parameters.AddWithValue("@oldDescription", oldDescription);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                context.Remove(proj);
             }
-                
+
+            context.SaveChanges();
         }
 
-        public void UpdateProjectLocation(string oldLocation, string newLocation)
+        //to count projects
+        public Int64 CountProjects()
         {
-            using (SqlConnection connection = new SqlConnection(_db))
-            {
-                string query = "UPDATE ... SET ... = @newLocation WHERE ... = @oldLocation";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@newLocation", newLocation);
-                command.Parameters.AddWithValue("@oldLocation", oldLocation);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
-            }
+            var count = context.ProjectDetails.Where(x => x.ID >= 1).Count();
+            return count;
         }
 
-        public void UpdateWorkCost(string oldWorkcost, string newWorkcost)
+        //to update project location
+        public void UpdateProjectLocation(int projectId, string newLocation)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            var prod = context.Products.Where(p => p.ID == projectId).FirstOrDefault();
+
+            if (prod is ProjectDetails)
             {
-                string query = "UPDATE ... SET ... = @newWorkcost WHERE ... = @oldWorkcost";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@newWorkcost", newWorkcost);
-                command.Parameters.AddWithValue("@oldWorkcost", oldWorkcost);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                prod.projectLocation = newLocation;
             }
+
+            context.SaveChanges();
         }
 
-        public void UpdateWorkDuration(string oldDuration, string newDuration)
+        //to update project description
+        public void UpdateProjectDescription(int projectId, string newDescription)
         {
-            using (SqlConnection connection = new SqlConnection(_db))
+            var prod = context.Products.Where(p => p.ID == projectId).FirstOrDefault();
+
+            if (prod is ProjectDetails)
             {
-                string query = "UPDATE ... SET ... = @newDuration WHERE ... = @oldDuration";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@newDuration", newDuration);
-                command.Parameters.AddWithValue("@oldDuration", oldDuration);
-                connection.Open();
-                command.ExecuteNonQuery();
-                connection.Close();
+                prod.projectDescription = newDescription;
             }
+
+            context.SaveChanges();
+        }
+
+        //to update customer data
+        public void UpdateCustomerData(int projectId, string newCustomerData)
+        {
+            var prod = context.Products.Where(p => p.ID == projectId).FirstOrDefault();
+
+            if (prod is ProjectDetails)
+            {
+                prod.customerData = newCustomerData;
+            }
+
+            context.SaveChanges();
+        }
+
+        //to update work duration
+        public void UpdateWorkDuration(int projectId, int newWorkDuration)
+        {
+            var prod = context.Products.Where(p => p.ID == projectId).FirstOrDefault();
+
+            if (prod is ProjectDetails)
+            {
+                prod.workDuration = newWorkDuration;
+            }
+
+            context.SaveChanges();
+        }
+
+        //to update work cost
+        public void UpdateWorkCost(int projectId, int newWorkCost)
+        {
+            var prod = context.Products.Where(p => p.ID == projectId).FirstOrDefault();
+
+            if (prod is ProjectDetails)
+            {
+                prod.workCost = newWorkCost;
+            }
+
+            context.SaveChanges();
         }
     }
 }

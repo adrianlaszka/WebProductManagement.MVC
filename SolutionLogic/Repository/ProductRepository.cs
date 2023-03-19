@@ -45,7 +45,7 @@ namespace SolutionLogic.Repository
             context.SaveChanges();
         }
 
-        //to modify a product
+        //to update a product
         public void UpdateProduct(string oldName, string newName)
         {
             var prod = context.Products.Where(p=>p.Name == oldName).FirstOrDefault();
