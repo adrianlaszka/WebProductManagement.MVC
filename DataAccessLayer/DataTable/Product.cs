@@ -14,9 +14,9 @@ namespace DataAccessLayer.DataTable
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
-        public int MaxPerCell { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
+        public int MaxPerCell { get; set; }        
         public int InStock { get; set; }
 
     }

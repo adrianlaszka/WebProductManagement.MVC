@@ -31,21 +31,33 @@ namespace SolutionLogic.Repository
             return await context.Products.Where(x => x.InStock >= 1).ToListAsync();
         }
 
-        //to add a new product
-        public void AddNewProduct(string newProduct, int MaxPerCell, decimal Price, int InStock)
+        //to add a new part
+        public void AddNewProduct(string PartName, decimal Price, int MaxPerCell)
         {
             Product prod = new Product()
             {
-                ProductName = newProduct,
+                ProductName = PartName,
                 Price = Price,
-                InStock = InStock,
                 MaxPerCell = MaxPerCell
             };
             context.add(prod);
             context.SaveChanges();
         }
 
-        //to update a product
+        //to change price of a part
+        public void changePriceOfPart(int id, decimal newPrice)
+        {
+            var prod = context.Products.Where(p => p.ID == id).FirstOrDefault();
+
+            if (prod is Product)
+            {
+                prod.Price = newPrice;
+            }
+
+            context.SaveChanges();
+        }
+
+        //to update a part
         public void UpdateProduct(string oldName, string newName)
         {
             var prod = context.Products.Where(p=>p.Name == oldName).FirstOrDefault();
@@ -58,7 +70,7 @@ namespace SolutionLogic.Repository
             context.SaveChanges();
         }
 
-        //to delete a product
+        //to delete a part
         public void DeleteProduct(string name)
         {
             var prod = context.Products.Where(p => p.Name == name).FirstOrDefault();
@@ -71,14 +83,14 @@ namespace SolutionLogic.Repository
             context.SaveChanges();
         }
 
-        //to count products
+        //to count num of parts
         public Int64 CountProducts()
         {
             var count = context.Products.Where(x => x.InStock >= 1).Count();
             return count;
         }
 
-        //the given productname is exists?
+        //the given partname is exists?
         public bool Exists(string productName)
         {
             var prod = context.Products.Where(p => p.Name == productName).FirstOrDefault();

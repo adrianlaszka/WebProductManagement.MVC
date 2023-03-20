@@ -12,11 +12,13 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Data;
 
 namespace SolutionLogic.Repository
 {
     class ProjectDetailsRepository : IProjectDetailsRepository
     {
+
         SolarPanelContext context = new SolarPanelContext();
 
         private readonly string _db;

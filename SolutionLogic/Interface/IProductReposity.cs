@@ -12,7 +12,9 @@ namespace SolutionLogic.Interface
     {
         public Task<IEnumerable<Product>> GetAllProducts(); // this is an interface method that get all Products from the database
 
-        public void AddNewProduct(string newProduct, int MaxPerCell, decimal Price, int InStock);
+        public void AddNewProduct(string newProduct, decimal Price, int MaxPerCell);
+
+        public void changePriceOfPart(int id, decimal newPrice);
 
         public void UpdateProduct(string oldName, string newName);
 
