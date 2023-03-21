@@ -1,29 +1,41 @@
 ﻿using DataAccessLayer.DataTable;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SolutionLogic.Interface;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WebProductManagement.MVC.Data;
 
 namespace WebProductManagement.MVC.Controllers
 {
-public class ProductController : Controller
-{
+    public class ProductController : Controller
+    {
         private readonly IProductReposity _repo; // I call the interface to get access to the GetAllProducts implementation
+        private readonly SolarPanelContext _panelContext;
+
         public ProductController(IProductReposity repo)// Instanace of the intertace 
         {
             _repo = repo;
         }
-      public async  Task<IActionResult> Index()
-      {
-            var productList = await _repo.GetAllProducts();  // Call the main logic GetAllProducts
+
+        public ProductController(SolarPanelContext context)
+        {
+            _panelContext = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            //var productList = await _repo.GetAllProducts();  // Call the main logic GetAllProducts
+            var productList = await _panelContext.Products.ToListAsync();
             return View(productList);
-      }
+        }
 
         //Alkatrész hozzáadása nézet megjelenítése
-      public ActionResult CreateProduct()
+        public ActionResult CreateProduct()
         {
             return View();
         }
@@ -60,15 +72,11 @@ public class ProductController : Controller
         [HttpPost]
         public ActionResult UpdateProductParameters(string productName, decimal price, int maxPerCell)
         {
-   
+
             //return View();
-            
+
             return Content(productName);
-            
+
         }
-
-
-
-
     }
 }
