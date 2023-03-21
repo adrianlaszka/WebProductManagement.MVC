@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WebProductManagement.MVC.Data;
+using System.Data;
 
 namespace WebProductManagement.MVC.Controllers
 {
@@ -70,13 +71,39 @@ namespace WebProductManagement.MVC.Controllers
         //Frontendről jönnek a a módosított alkatrész adatai.
         //Ezt a módosított objektumot kell frissíteni az adatbázisba.
         [HttpPost]
-        public ActionResult UpdateProductParameters(string productName, decimal price, int maxPerCell)
+        public async Task<IActionResult> UpdateProductParameters(int _id, Product _prod, string _productName, decimal price, int maxPerCell)
         {
+            if (_id != _prod.Id)
+            {
+                return BadRequest();
+            }
 
-            //return View();
+            _panelContext.Entry(_prod).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
-            return Content(productName);
+            try
+            {
+                var prod = _panelContext.Products.Where(p => p.Id == _id).FirstOrDefault();
 
+                if (prod is Product)
+                {
+                    prod.ProductName = _productName;
+                    prod.Price = price;
+                    prod.MaxPerCell = maxPerCell;
+                }
+                await _panelContext.SaveChangesAsync();
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException)
+            {
+                if (_panelContext.Products.Find(_id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
         }
     }
 }

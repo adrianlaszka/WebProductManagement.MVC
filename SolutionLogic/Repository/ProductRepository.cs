@@ -70,6 +70,19 @@ namespace SolutionLogic.Repository
             context.SaveChanges();
         }
 
+        public void UpdatePartDetails(string productName, decimal price, int maxPerCell)
+        {
+            var prod = context.Products.Where(p => p.Name == productName).FirstOrDefault();
+
+            if (prod is Product)
+            {
+                prod.price = price;
+                prod.maxPerCell = maxPerCell;
+            }
+
+            context.SaveChanges();
+        }
+
         //to delete a part
         public void DeleteProduct(string name)
         {
